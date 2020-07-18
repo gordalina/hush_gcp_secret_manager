@@ -85,7 +85,7 @@ jobs:
         run: |
           mix docs
           test -f doc/index.html && echo "doc/index.html exists."
-          test -f doc/hush.epub && echo "doc/hush_gcp_secret_manager.epub exists."
+          test -f doc/hush_gcp_secret_manager.epub && echo "doc/hush_gcp_secret_manager.epub exists."
 
   inchci:
     name: inch ci
