@@ -31,7 +31,7 @@ defmodule HushGcpSecretManager.MixProject do
 
   defp deps do
     [
-      {:hush, "~> 0.0.4"},
+      {:hush, path: "../hush"},
       {:httpoison, ">0.0.0"},
       {:goth, "~> 1.1.0"},
       {:mox, "~> 0.5", only: :test},
@@ -63,7 +63,8 @@ defmodule HushGcpSecretManager.MixProject do
     [
       main: "readme",
       extras: [
-        "README.md"
+        "README.md",
+        "CHANGELOG.md"
       ],
       source_ref: "v#{@version}",
       source_url: @source_url

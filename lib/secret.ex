@@ -1,14 +1,6 @@
-defmodule Hush.Provider.GcpSecretManager.Secrets do
+defmodule Hush.Provider.GcpSecretManager.Secret do
   @moduledoc """
-  This module provides a function fetch/3 to retrieve secrets from GCP.
-
-  Example
-
-      iex> Secrets.fetch(project_id, secret)
-      {:ok, "value"}
-
-      iex> Secrets.fetch(project_id, secret, "1")
-      {:error, :not_found}
+  This module provides a function fetch/2 and fetch/3 to retrieve secrets from GCP.
   """
 
   alias Goth.Token
@@ -27,7 +19,7 @@ defmodule Hush.Provider.GcpSecretManager.Secrets do
           {:error, :not_found}
 
         {:ok, %{body: body}} ->
-          {:error, body}
+          parse_error(body, project_id)
 
         {:error, reason} ->
           {:error, reason}
@@ -62,5 +54,45 @@ defmodule Hush.Provider.GcpSecretManager.Secrets do
 
   defp goth_token() do
     Application.get_env(:hush_gcp_secret_manager, :goth, GcpSecretManager.Goth)
+  end
+
+  defp parse_error(body, project_id) do
+    try do
+      body = Jason.decode!(body)
+      %{"error" => %{"message" => message}} = body
+
+      cond do
+        String.match?(message, ~r/Permission denied on resource project/) ->
+          msg = """
+          The supplied account doesn't seem to have access to project
+          '#{project_id}', ensure that it is:
+
+            1) spelled correctly
+            2) you have the right account key (json file)
+            3) the account has enough permissions
+
+          The original error message was: #{message}
+          """
+
+          {:error, msg}
+
+        String.match?(message, ~r/Permission .* denied for resource/) ->
+          msg = """
+          The supplied account doesn't seem to have enough permissions to read secrets on project '#{
+            project_id
+          }'.
+          Ensure that this account has the 'Secret Manager Secret Accessor' (roles/secretmanager.secretAccessor) IAM role attached to it.
+
+          The original error message was: #{message}
+          """
+
+          {:error, msg}
+
+        true ->
+          {:error, body}
+      end
+    rescue
+      e -> {:error, e}
+    end
   end
 end

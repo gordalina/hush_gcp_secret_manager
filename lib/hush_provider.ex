@@ -1,7 +1,7 @@
 defmodule Hush.Provider.GcpSecretManager do
   @moduledoc """
-  Implements a Hush.Provider behaviour to resolve secrets
-  from Google Secret Manager.
+  Implements a Hush.Provider behaviour to resolve secrets from
+  Google Secret Manager at runtime.
 
   To configure this provider, ensure you configure goth, hush and
   hush_gcp_secret_manager:
@@ -20,7 +20,7 @@ defmodule Hush.Provider.GcpSecretManager do
 
   @behaviour Hush.Provider
 
-  @impl true
+  @impl Hush.Provider
   @spec load(config :: any()) :: :ok | {:error, any()}
   def load(_) do
     with {:ok, _} <- project() |> validate(),
@@ -30,10 +30,10 @@ defmodule Hush.Provider.GcpSecretManager do
     end
   end
 
-  @impl true
+  @impl Hush.Provider
   @spec fetch(key :: String.t()) :: {:ok, String.t()} | {:error, :not_found} | {:error, any()}
   def fetch(key) do
-    project() |> GcpSecretManager.Secrets.fetch(key)
+    project() |> GcpSecretManager.Secret.fetch(key)
   end
 
   defp project() do
