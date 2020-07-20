@@ -48,7 +48,7 @@ defmodule Hush.Provider.GcpSecretManager.SecretTest do
       |> expect(:for_scope, 4, fn _ -> @token end)
 
       GcpSecretManager.MockHttp
-      |> expect(:get, fn (_, _) ->
+      |> expect(:get, fn _, _ ->
         {:ok, %{body: response_error("Permission denied on resource project")}}
       end)
 
@@ -62,6 +62,7 @@ defmodule Hush.Provider.GcpSecretManager.SecretTest do
 
       The original error message was: Permission denied on resource project
       """
+
       assert {:error, error} == GcpSecretManager.Secret.fetch(@project, "KEY")
     end
 
@@ -70,7 +71,7 @@ defmodule Hush.Provider.GcpSecretManager.SecretTest do
       |> expect(:for_scope, 4, fn _ -> @token end)
 
       GcpSecretManager.MockHttp
-      |> expect(:get, fn (_, _) ->
+      |> expect(:get, fn _, _ ->
         {:ok, %{body: response_error("Permission VIEWER denied for resource")}}
       end)
 
@@ -80,6 +81,7 @@ defmodule Hush.Provider.GcpSecretManager.SecretTest do
 
       The original error message was: Permission VIEWER denied for resource
       """
+
       assert {:error, error} == GcpSecretManager.Secret.fetch(@project, "KEY")
     end
 
@@ -88,7 +90,7 @@ defmodule Hush.Provider.GcpSecretManager.SecretTest do
       |> expect(:for_scope, 4, fn _ -> @token end)
 
       GcpSecretManager.MockHttp
-      |> expect(:get, fn (_, _) ->
+      |> expect(:get, fn _, _ ->
         {:ok, %{body: response_error("error")}}
       end)
 
@@ -101,7 +103,7 @@ defmodule Hush.Provider.GcpSecretManager.SecretTest do
       |> expect(:for_scope, 4, fn _ -> @token end)
 
       GcpSecretManager.MockHttp
-      |> expect(:get, fn (_, _) ->
+      |> expect(:get, fn _, _ ->
         {:ok, %{body: "this is not json"}}
       end)
 
