@@ -22,8 +22,8 @@ defmodule Hush.Provider.GcpSecretManager do
 
   @impl Hush.Provider
   @spec load(config :: any()) :: :ok | {:error, any()}
-  def load(_) do
-    with {:ok, _} <- project() |> validate(),
+  def load(config) do
+    with {:ok, _} <- project(config) |> validate(),
          {:ok, _} <- Application.ensure_all_started(:goth),
          {:ok, _} <- Application.ensure_all_started(:httpoison) do
       :ok
@@ -36,8 +36,14 @@ defmodule Hush.Provider.GcpSecretManager do
     project() |> GcpSecretManager.Secret.fetch(key)
   end
 
-  defp project() do
-    Application.get_env(:hush_gcp_secret_manager, :project_id, nil)
+  defp project(config \\ nil) do
+    cond do
+      config == nil ->
+        Application.get_env(:hush_gcp_secret_manager, :project_id, nil)
+
+      true ->
+        config[:hush_gcp_secret_manager] |> Keyword.get(:project_id, nil)
+    end
   end
 
   defp validate(project) when is_binary(project), do: {:ok, project}
