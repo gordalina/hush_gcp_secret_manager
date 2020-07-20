@@ -25,7 +25,9 @@ defmodule Hush.Provider.GcpSecretManagerTest do
 
     test "with config" do
       assert nil == Application.get_env(:hush_gcp_secret_manager, :project_id)
-      assert :ok == GcpSecretManager.load([{:hush_gcp_secret_manager, [project_id: "project_id"]}])
+
+      assert :ok ==
+               GcpSecretManager.load([{:hush_gcp_secret_manager, [project_id: "project_id"]}])
     end
   end
 

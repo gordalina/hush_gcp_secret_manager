@@ -37,12 +37,10 @@ defmodule Hush.Provider.GcpSecretManager do
   end
 
   defp project(config \\ nil) do
-    cond do
-      config == nil ->
-        Application.get_env(:hush_gcp_secret_manager, :project_id, nil)
-
-      true ->
-        config[:hush_gcp_secret_manager] |> Keyword.get(:project_id, nil)
+    if config == nil do
+      Application.get_env(:hush_gcp_secret_manager, :project_id, nil)
+    else
+      config[:hush_gcp_secret_manager] |> Keyword.get(:project_id, nil)
     end
   end
 
