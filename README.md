@@ -17,7 +17,7 @@ of dependencies in `mix.exs`:
 def deps do
   [
     {:hush, "~> 0.1.0"},
-    {:hush_gcp_secret_manager, "~> 0.1.1"}
+    {:hush_gcp_secret_manager, "~> 0.1.2"}
   ]
 end
 ```
