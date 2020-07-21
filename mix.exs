@@ -31,9 +31,10 @@ defmodule HushGcpSecretManager.MixProject do
 
   defp deps do
     [
+      {:goth, "~> 0.11 or ~> 1.0"},
+      {:httpoison, "~> 0.13 or ~> 1.0"},
       {:hush, "~> 0.1.0"},
-      {:httpoison, "~> 1.6"},
-      {:goth, "~> 1.1.0"},
+      {:jason, "~> 1.0"},
       {:mox, "~> 0.5", only: :test},
       {:ex_check, "~> 0.12.0", only: :dev, runtime: false},
       {:credo, "~> 1.4.0", only: :dev, runtime: false},
