@@ -42,6 +42,10 @@ config :hush_gcp_secret_manager,
   project_id: "my_project_id"
 ```
 
+**GCP Authorization**
+
+In order to retrieve secrets from GCP, ensure the service account you use has the Secret Manager Secret Accessor role (`roles/secretmanager.secretAccessor`).
+
 ## Usage
 
 The following example reads the password and the pool size for CloudSQL from secret manager into the ecto repo configuration.
