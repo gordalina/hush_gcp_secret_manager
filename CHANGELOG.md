@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.1
+
+- Relax version constraint on Hush to ~> 0.2
+
 ## v0.2.0
 
 - Support Hush v0.2.0
