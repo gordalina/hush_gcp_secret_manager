@@ -33,7 +33,7 @@ defmodule HushGcpSecretManager.MixProject do
     [
       {:goth, "~> 0.11 or ~> 1.0"},
       {:httpoison, "~> 0.13 or ~> 1.0"},
-      {:hush, ">= 0.1.0 and <= 0.2.0"},
+      {:hush, "~> 0.2"},
       {:jason, "~> 1.0"},
       {:mox, "~> 0.5", only: :test},
       {:ex_check, "~> 0.12.0", only: :dev, runtime: false},
