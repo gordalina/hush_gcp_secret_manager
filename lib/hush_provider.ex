@@ -23,7 +23,8 @@ defmodule Hush.Provider.GcpSecretManager do
   @impl Hush.Provider
   @spec load(config :: any()) :: :ok | {:error, any()}
   def load(config) do
-    with {:ok, _} <- project(config) |> validate(),
+    with {:ok, project_id} <- project(config) |> validate(),
+         :ok <- Application.put_env(:hush_gcp_secret_manager, :project_id, project_id),
          {:ok, _} <- Application.ensure_all_started(:goth),
          {:ok, _} <- Application.ensure_all_started(:httpoison) do
       :ok
