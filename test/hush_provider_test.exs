@@ -1,5 +1,5 @@
 defmodule Hush.Provider.GcpSecretManagerTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   import Mox
   doctest Hush.Provider.GcpSecretManager
   alias Hush.Provider.GcpSecretManager
@@ -14,6 +14,7 @@ defmodule Hush.Provider.GcpSecretManagerTest do
           project_id: "<gcp_project_id>"
       """
 
+      Application.put_env(:hush_gcp_secret_manager, :project_id, nil)
       assert {:error, msg} == GcpSecretManager.load(nil)
     end
 
