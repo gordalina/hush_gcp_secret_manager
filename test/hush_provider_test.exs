@@ -1,5 +1,5 @@
 defmodule Hush.Provider.GcpSecretManagerTest do
-  use ExUnit.Case, async: true
+  use ExUnit.Case
   import Mox
   doctest Hush.Provider.GcpSecretManager
   alias Hush.Provider.GcpSecretManager
