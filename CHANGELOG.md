@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.2
+
+- Bugfix: save application env when loading configuration in Provider mode.
+
 ## v0.2.1
 
 - Relax version constraint on Hush to ~> 0.2
