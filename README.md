@@ -16,7 +16,7 @@ of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:hush, "~> 0.1.0"},
+    {:hush, "~> 0.4.0"},
     {:hush_gcp_secret_manager, "~> 0.2.2"}
   ]
 end
@@ -42,7 +42,7 @@ config :hush_gcp_secret_manager,
   project_id: "my_project_id"
 ```
 
-**GCP Authorization**
+### GCP Authorization
 
 In order to retrieve secrets from GCP, ensure the service account you use has the Secret Manager Secret Accessor role (`roles/secretmanager.secretAccessor`).
 
