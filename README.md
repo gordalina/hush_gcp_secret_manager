@@ -1,8 +1,9 @@
 # GCP Secret Manager Hush Provider
 
-[![Build Status](https://github.com/gordalina/hush_gcp_secret_manager/workflows/ci/badge.svg)](https://github.com/gordalina/hush_gcp_secret_manager/actions?query=workflow%3A%22ci%22)
-[![Coverage Status](https://coveralls.io/repos/gordalina/hush_gcp_secret_manager/badge.svg?branch=master)](https://coveralls.io/r/gordalina/hush_gcp_secret_manager?branch=master)
-[![hex.pm version](https://img.shields.io/hexpm/v/hush_gcp_secret_manager.svg)](https://hex.pm/packages/hush_gcp_secret_manager)
+[![Build Status](https://img.shields.io/github/workflow/status/gordalina/hush_gcp_secret_manager/ci?style=flat-square)](https://github.com/gordalina/hush_gcp_secret_manager/actions?query=workflow%3A%22ci%22)
+[![Coverage Status](https://img.shields.io/coveralls/github/gordalina/hush_gcp_secret_manager?style=flat-square)](https://app.codecov.io/gh/gordalina/hush_gcp_secret_manager)
+[![hex.pm version](https://img.shields.io/hexpm/v/hush_gcp_secret_manager?style=flat-square)](https://hex.pm/packages/hush_gcp_secret_manager)
+[![hex.pm downloads](https://img.shields.io/hexpm/dt/hush_gcp_secret_manager?style=flat-square)]([LICENSE](https://hex.pm/packages/hush_gcp_secret_manager))
 
 This package provides a [Hush](https://github.com/gordalina/hush) Provider to resolve Google Cloud Platform's [Secret Manager](https://cloud.google.com/secret-manager) secrets.
 
@@ -22,7 +23,7 @@ def deps do
 end
 ```
 
-This module relies on `goth` and `httpoison` to talk to the Google Cloud Platform API. As such you need to configure goth, below is an example, but you can read alternative ways of configuring it in [their documentation](https://github.com/peburrows/goth).
+This module relies on `goth` to fetch secrets from the Google Cloud Platform API. As such you need to configure goth which is used in `hush_gcp_secret_manager`, the configuration is the same as if you were to configure achild_spec as per [their documentation](https://github.com/peburrows/goth).
 
 As the provider needs to start both applications, it needs to registered as a provider in `hush`, so that it gets loaded during startup.
 
@@ -31,15 +32,13 @@ As the provider needs to start both applications, it needs to registered as a pr
 
 alias Hush.Provider.GcpSecretManager
 
-config :goth,
-  json: "service-account-key.json" |> File.read!
-
 # ensure hush loads GcpSecretManager during startup
 config :hush,
   providers: [GcpSecretManager]
 
 config :hush_gcp_secret_manager,
-  project_id: "my_project_id"
+  project_id: "my_project_id",
+  goth: [name: MyApp.Goth, source: ...]
 ```
 
 ### GCP Authorization
