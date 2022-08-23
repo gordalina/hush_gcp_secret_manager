@@ -16,7 +16,13 @@ defmodule HushGcpSecretManager.MixProject do
       start_permanent: Mix.env() == :prod,
       source_url: @source_url,
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [coveralls: :test, "coveralls.github": :test],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.github": :test,
+        "coveralls.html": :test,
+        "coveralls.json": :test
+      ],
       dialyzer: [
         plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
       ]
@@ -32,8 +38,8 @@ defmodule HushGcpSecretManager.MixProject do
   defp deps do
     [
       {:goth, "~> 0.11 or ~> 1.0"},
-      {:httpoison, "~> 0.13 or ~> 1.0"},
       {:hush, "~> 0.2"},
+      {:finch, "~> 0.9"},
       {:jason, "~> 1.0"},
       {:mox, "~> 0.5", only: :test},
       {:ex_check, "~> 0.12.0", only: :dev, runtime: false},
