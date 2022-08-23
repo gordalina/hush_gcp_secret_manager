@@ -37,15 +37,15 @@ defmodule HushGcpSecretManager.MixProject do
 
   defp deps do
     [
-      {:goth, "~> 0.11 or ~> 1.0"},
       {:hush, "~> 0.2"},
       {:finch, "~> 0.9"},
+      {:goth, "~> 1.3"},
       {:jason, "~> 1.0"},
-      {:mox, "~> 0.5", only: :test},
-      {:ex_check, "~> 0.12.0", only: :dev, runtime: false},
-      {:credo, "~> 1.4.0", only: :dev, runtime: false},
-      {:dialyxir, "~> 1.0.0", only: :dev, runtime: false},
-      {:sobelow, "~> 0.10.3", only: :dev, runtime: false},
+      {:mock, "~> 0.3", only: :test},
+      {:ex_check, "~> 0.12", only: :dev, runtime: false},
+      {:credo, "~> 1.4", only: :dev, runtime: false},
+      {:dialyxir, "~> 1.0", only: :dev, runtime: false},
+      {:sobelow, "~> 0.10", only: :dev, runtime: false},
       {:ex_doc, "~> 0.22", only: :dev, runtime: false},
       {:excoveralls, "~> 0.12", only: :test, runtime: false}
     ]
