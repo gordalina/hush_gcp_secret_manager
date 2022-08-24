@@ -48,6 +48,7 @@ defmodule Hush.Provider.GcpSecretManagerTest do
       Application.put_env(:hush_gcp_secret_manager, :goth, nil)
       assert {:error, msg} == GcpSecretManager.load(nil)
       Application.put_env(:hush_gcp_secret_manager, :project_id, nil)
+      Application.put_env(:hush_gcp_secret_manager, :goth, nil)
     end
 
     test "ok with a project id" do
@@ -66,8 +67,8 @@ defmodule Hush.Provider.GcpSecretManagerTest do
     end
 
     test "with config" do
-      assert nil == Application.get_env(:hush_gcp_secret_manager, :project_id)
-      assert nil == Application.get_env(:hush_gcp_secret_manager, :goth)
+      Application.put_env(:hush_gcp_secret_manager, :project_id, nil)
+      Application.put_env(:hush_gcp_secret_manager, :goth, nil)
 
       children = [
         {Finch, name: Hush.Provider.GcpSecretManager.Finch},
