@@ -191,12 +191,20 @@ defmodule Hush.Provider.GcpSecretManagerTest do
       end
     end
 
-    test_with_mock("exception", %{}, Goth, [], fetch: fn _ -> @token end) do
+    test_with_mock("finch exception", %{}, Goth, [], fetch: fn _ -> @token end) do
       with_mock Finch,
         build: fn _, _, _ -> nil end,
         request: fn _, _ -> {:error, "error"} end do
         assert {:error, "\"error\""} == GcpSecretManager.fetch("KEY")
       end
+    end
+
+    test_with_mock("goth exception", %{}, Goth, [], fetch: fn _ -> {:error, "error"} end) do
+      assert {:error, "error"} == GcpSecretManager.fetch("KEY")
+    end
+
+    test_with_mock("goth undefined exception", %{}, Goth, [], fetch: fn _ -> {:err, "error"} end) do
+      assert {:error, "{:err, \"error\"}"} == GcpSecretManager.fetch("KEY")
     end
   end
 
