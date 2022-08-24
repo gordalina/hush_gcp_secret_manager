@@ -1,5 +1,11 @@
 # Changelog
 
+## Next
+
+- Upgrade Goth to ~> 1.3
+- Switch http client from httpoison to finch (which is already bundled with goth)
+- Upgrade hush to 1.0
+
 ## v0.2.2
 
 - Bugfix: save application env when loading configuration in Provider mode.

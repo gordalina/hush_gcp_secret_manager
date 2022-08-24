@@ -1,7 +1,7 @@
 # GCP Secret Manager Hush Provider
 
 [![Build Status](https://img.shields.io/github/workflow/status/gordalina/hush_gcp_secret_manager/ci?style=flat-square)](https://github.com/gordalina/hush_gcp_secret_manager/actions?query=workflow%3A%22ci%22)
-[![Coverage Status](https://img.shields.io/coveralls/github/gordalina/hush_gcp_secret_manager?style=flat-square)](https://app.codecov.io/gh/gordalina/hush_gcp_secret_manager)
+[![Coverage Status](https://img.shields.io/codecov/github/gordalina/hush_gcp_secret_manager?style=flat-square)](https://app.codecov.io/gh/gordalina/hush_gcp_secret_manager)
 [![hex.pm version](https://img.shields.io/hexpm/v/hush_gcp_secret_manager?style=flat-square)](https://hex.pm/packages/hush_gcp_secret_manager)
 [![hex.pm downloads](https://img.shields.io/hexpm/dt/hush_gcp_secret_manager?style=flat-square)]([LICENSE](https://hex.pm/packages/hush_gcp_secret_manager))
 
@@ -17,8 +17,8 @@ of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:hush, "~> 0.4.0"},
-    {:hush_gcp_secret_manager, "~> 0.2.2"}
+    {:hush, "~> 1.0.0"},
+    {:hush_gcp_secret_manager, "~> 1.0.0"}
   ]
 end
 ```
