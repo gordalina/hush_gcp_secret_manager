@@ -17,7 +17,7 @@ of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:hush, "~> 1.0.0"},
+    {:hush, "~> 1.0"},
     {:hush_gcp_secret_manager, "~> 1.0.0-rc.0"}
   ]
 end

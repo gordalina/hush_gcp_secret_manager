@@ -39,7 +39,7 @@ defmodule HushGcpSecretManager.MixProject do
     [
       {:finch, "~> 0.9"},
       {:goth, "~> 1.3"},
-      {:hush, "1.0.0-rc.0"},
+      {:hush, "~> 1.0"},
       {:jason, "~> 1.0"},
       {:mock, "~> 0.3", only: :test},
       {:ex_check, "~> 0.12", only: :dev, runtime: false},

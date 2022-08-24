@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.0.0-rc.0
+## v1.0.0
 
 - Upgrade Goth to ~> 1.3
 - Switch http client from httpoison to finch (which is already bundled with goth)
