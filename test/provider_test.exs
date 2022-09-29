@@ -158,10 +158,11 @@ defmodule Hush.Provider.GcpSecretManagerTest do
       with_mock Finch,
         build: fn _, _, _ -> nil end,
         request: fn _, _ -> {:ok, %{status: 200, body: "internal server error"}} end do
-        error =
-          "Could not parse json '\"internal server error\"': %Jason.DecodeError{data: \"internal server error\", position: 0, token: nil}"
+        result = GcpSecretManager.fetch("KEY")
+        assert {:error, _} = result
 
-        assert {:error, error} == GcpSecretManager.fetch("KEY")
+        {:error, message} = result
+        assert message =~ "Could not parse json '\"internal server error\"': %Jason.DecodeError{"
       end
     end
 
@@ -169,10 +170,11 @@ defmodule Hush.Provider.GcpSecretManagerTest do
       with_mock Finch,
         build: fn _, _, _ -> nil end,
         request: fn _, _ -> {:ok, %{status: 500, body: "internal server error"}} end do
-        error =
-          "Could not parse json '\"internal server error\"': %Jason.DecodeError{data: \"internal server error\", position: 0, token: nil}"
+        result = GcpSecretManager.fetch("KEY")
+        assert {:error, _} = result
 
-        assert {:error, error} == GcpSecretManager.fetch("KEY")
+        {:error, message} = result
+        assert message =~ "Could not parse json '\"internal server error\"': %Jason.DecodeError{"
       end
     end
 
