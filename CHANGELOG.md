@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.1
+
+- Configure `Goth.fetch/2` timeout via configuration key `:goth_timeout`
+
 ## v1.0.0
 
 - Upgrade Goth to ~> 1.3

@@ -26,7 +26,10 @@ defmodule Hush.Provider.GcpSecretManager do
   @impl Hush.Provider
   @spec load(config :: any()) :: :ok | {:error, any()}
   def load(config) do
-    config = [project_id: project(config), goth: goth(config)]
+    config = [
+      project_id: config(:project_id, config),
+      goth: config(:goth, config)
+    ]
 
     with {:ok, _} <- Application.ensure_all_started(:goth),
          :ok <- config |> validate(),
@@ -44,12 +47,16 @@ defmodule Hush.Provider.GcpSecretManager do
   @spec fetch(key :: String.t()) ::
           {:ok, String.t()} | {:error, :not_found} | {:error, String.t()}
   def fetch(key) do
-    with {:ok, %Token{token: token}} <- goth() |> Keyword.get(:name) |> Goth.fetch(),
-         project_id <- project(),
-         url <- url(project_id, key, "latest"),
-         headers <- headers(token),
-         request <- Finch.build(:get, url, headers) do
-      case Finch.request(request, FinchClient) do
+    project_id = config(:project_id)
+    timeout = config(:goth_timeout) || 5_000
+    goth = config(:goth)
+    url = url(project_id, key, "latest")
+
+    with {:ok, %Token{token: token}} <- Goth.fetch(goth[:name], timeout) do
+      :get
+      |> Finch.build(url, headers(token))
+      |> Finch.request(FinchClient)
+      |> case do
         {:ok, %{body: body, status: 200}} ->
           success(body)
 
@@ -133,19 +140,11 @@ defmodule Hush.Provider.GcpSecretManager do
     end
   end
 
-  defp project(config \\ nil) do
+  defp config(key, config \\ nil) do
     if config == nil do
-      Application.fetch_env!(:hush_gcp_secret_manager, :project_id)
+      Application.get_env(:hush_gcp_secret_manager, key)
     else
-      config[:hush_gcp_secret_manager][:project_id]
-    end
-  end
-
-  defp goth(config \\ nil) do
-    if config == nil do
-      Application.fetch_env!(:hush_gcp_secret_manager, :goth)
-    else
-      config[:hush_gcp_secret_manager][:goth]
+      config[:hush_gcp_secret_manager][key]
     end
   end
 

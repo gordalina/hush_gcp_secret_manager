@@ -23,7 +23,7 @@ def deps do
 end
 ```
 
-This module relies on `goth` to fetch secrets from the Google Cloud Platform API. As such you need to configure goth which is used in `hush_gcp_secret_manager`, the configuration is the same as if you were to configure achild_spec as per [their documentation](https://github.com/peburrows/goth).
+This module relies on `goth` to fetch secrets from the Google Cloud Platform API. As such you need to configure goth which is used in `hush_gcp_secret_manager`, the configuration is the same as if you were to configure a child_spec as per [their documentation](https://github.com/peburrows/goth).
 
 As the provider needs to start both applications, it needs to registered as a provider in `hush`, so that it gets loaded during startup.
 
@@ -38,7 +38,8 @@ config :hush,
 
 config :hush_gcp_secret_manager,
   project_id: "my_project_id",
-  goth: [name: MyApp.Goth, source: ...]
+  goth: [name: MyApp.Goth, source: ...],
+  goth_timeout: 5_000 # milliseconds
 ```
 
 ### GCP Authorization
