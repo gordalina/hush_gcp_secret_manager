@@ -47,12 +47,11 @@ defmodule Hush.Provider.GcpSecretManager do
   @spec fetch(key :: String.t()) ::
           {:ok, String.t()} | {:error, :not_found} | {:error, String.t()}
   def fetch(key) do
-    project_id = config(:project_id)
-    timeout = config(:goth_timeout) || 5_000
-    goth = config(:goth)
-    url = url(project_id, key, "latest")
+    with [goth, timeout] <- [config(:goth), config(:goth_timeout) || 5_000],
+         {:ok, %Token{token: token}} <- Goth.fetch(goth[:name], timeout) do
+      project_id = config(:project_id)
+      url = url(project_id, key, "latest")
 
-    with {:ok, %Token{token: token}} <- Goth.fetch(goth[:name], timeout) do
       :get
       |> Finch.build(url, headers(token))
       |> Finch.request(FinchClient)
