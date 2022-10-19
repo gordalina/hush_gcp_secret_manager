@@ -213,7 +213,7 @@ defmodule Hush.Provider.GcpSecretManagerTest do
         build: fn _, _, _ -> nil end,
         request: fn _, _ -> response_ok("secret") end do
         Application.put_env(:hush_gcp_secret_manager, :goth_timeout, 10_000)
-        {:ok, "secret"} == GcpSecretManager.fetch("secret")
+        assert {:ok, "secret"} == GcpSecretManager.fetch("secret")
         Application.delete_env(:hush_gcp_secret_manager, :goth_timeout)
       end
     end
