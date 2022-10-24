@@ -3,7 +3,7 @@ defmodule Hush.Provider.GcpSecretManager do
   Implements a Hush.Provider behaviour to resolve secrets from
   Google Secret Manager at runtime.
 
-  To configure this provider, hush and hush_gcp_secret_manager.
+  To configure this provider, use :hush and :hush_gcp_secret_manager.
 
   The configuration supplied to :hush_gcp_secret_manager.goth is in the same format as
   you would configure goth, as per https://github.com/peburrows/goth
@@ -14,8 +14,9 @@ defmodule Hush.Provider.GcpSecretManager do
         providers: [Hush.Provider.GcpSecretManager]
 
       config :hush_gcp_secret_manager,
-        goth: [name: MyApp.GothHush, source: ...],
-        project_id: "my_project_id"
+        project_id: "my_project_id",
+        goth: [name: MyApp.Goth, source: ...],
+        goth_timeout: 5_000 # milliseconds
   """
 
   alias Goth.Token
@@ -28,7 +29,8 @@ defmodule Hush.Provider.GcpSecretManager do
   def load(config) do
     config = [
       project_id: config(:project_id, config),
-      goth: config(:goth, config)
+      goth: config(:goth, config),
+      goth_timeout: config(:goth_timeout, config)
     ]
 
     with {:ok, _} <- Application.ensure_all_started(:goth),
@@ -168,8 +170,9 @@ defmodule Hush.Provider.GcpSecretManager do
       Example configuration:
 
         config :hush_gcp_secret_manager,
-          goth: [name: MyApp.GothHush],
-          project_id: "<gcp_project_id>"
+          project_id: "my_project_id",
+          goth: [name: MyApp.GothHush, source: ...],
+          goth_timeout: 5_000 # milliseconds
       """
 
       {:error, message}

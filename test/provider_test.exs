@@ -20,8 +20,9 @@ defmodule Hush.Provider.GcpSecretManagerTest do
       Example configuration:
 
         config :hush_gcp_secret_manager,
-          goth: [name: MyApp.GothHush],
-          project_id: "<gcp_project_id>"
+          project_id: "my_project_id",
+          goth: [name: MyApp.GothHush, source: ...],
+          goth_timeout: 5_000 # milliseconds
       """
 
       Application.put_env(:hush_gcp_secret_manager, :project_id, nil)
@@ -40,8 +41,9 @@ defmodule Hush.Provider.GcpSecretManagerTest do
       Example configuration:
 
         config :hush_gcp_secret_manager,
-          goth: [name: MyApp.GothHush],
-          project_id: "<gcp_project_id>"
+          project_id: "my_project_id",
+          goth: [name: MyApp.GothHush, source: ...],
+          goth_timeout: 5_000 # milliseconds
       """
 
       Application.put_env(:hush_gcp_secret_manager, :project_id, "project")
