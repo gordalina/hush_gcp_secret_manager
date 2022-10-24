@@ -162,7 +162,8 @@ defmodule Hush.Provider.GcpSecretManager do
       :ok
     else
       message = """
-      Configuration not set, please set the project id you'd like to read secrets from.
+      Configuration not set, please set the project id you'd like to
+      read secrets from.
 
       The goth configuration is the same as you would configure goth itself. See https://github.com/peburrows/goth for more information.
 
