@@ -8,7 +8,7 @@ defmodule HushGcpSecretManager.MixProject do
     [
       app: :hush_gcp_secret_manager,
       version: @version,
-      elixir: "~> 1.10",
+      elixir: "~> 1.11",
       deps: deps(),
       docs: docs(),
       description: description(),
