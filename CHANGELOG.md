@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.0
+
+- Update to Elixir 1.19
+
 ## v1.1.0
 
 - Add support for Elixir 1.17 and OTP 27
